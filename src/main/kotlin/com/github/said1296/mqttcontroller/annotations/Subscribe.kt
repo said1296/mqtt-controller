@@ -1,7 +1,7 @@
-package com.lacomuna.mqttcontroller.annotations
+package com.github.said1296.mqttcontroller.annotations
 
-import com.lacomuna.mqttcontroller.constants.MatchType
-import com.lacomuna.mqttcontroller.constants.PayloadManagingStrategy
+import com.github.said1296.mqttcontroller.constants.MatchType
+import com.github.said1296.mqttcontroller.constants.PayloadManagingStrategy
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)

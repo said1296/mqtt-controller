@@ -2,13 +2,13 @@
 <aspectj>
     <weaver options="-verbose -showWeaveInfo">
         <!-- only weave classes in our application-specific packages -->
-        <include within="com.lacomuna.mqttcontroller.aspects.*"/>
+        <include within="com.github.said1296.mqttcontroller.aspects.*"/>
         <exclude within="org.springframework..*"/>
         <exclude within="org.apache..*"/>
     </weaver>
 
     <aspects>
         <!-- weave in just this aspect -->
-        <aspect name="com.lacomuna.mqttcontroller.aspects.SubtopicAnnotatedMethodAspect"/>
+        <aspect name="com.github.said1296.mqttcontroller.aspects.SubtopicAnnotatedMethodAspect"/>
     </aspects>
 </aspectj>

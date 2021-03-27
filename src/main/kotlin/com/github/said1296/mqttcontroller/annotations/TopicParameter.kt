@@ -1,4 +1,4 @@
-package com.lacomuna.mqttcontroller.annotations
+package com.github.said1296.mqttcontroller.annotations
 
 /**
  * Annotation for receiving a parameter contained in a topic.

@@ -1,4 +1,4 @@
-package com.lacomuna.mqttcontroller.constants
+package com.github.said1296.mqttcontroller.constants
 
 enum class PayloadManagingStrategy(val value: Int) {
     /**

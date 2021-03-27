@@ -8,7 +8,7 @@ plugins {
     `maven-publish`
 }
 
-group = "com.lacomuna"
+group = "com.github.said1296"
 version = "1"
 java.sourceCompatibility = JavaVersion.VERSION_15
 

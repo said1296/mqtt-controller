@@ -1,10 +1,10 @@
-package com.lacomuna.mqttcontroller.controller
+package com.github.said1296.mqttcontroller.controller
 
-import com.lacomuna.mqttcontroller.configurations.MqttControllerProperties
-import com.lacomuna.mqttcontroller.constants.MatchType
-import com.lacomuna.mqttcontroller.exceptions.TopicParameterException
-import com.lacomuna.mqttcontroller.models.SubtopicUserInput
-import com.lacomuna.mqttcontroller.models.TopicMatchResult
+import com.github.said1296.mqttcontroller.configurations.MqttControllerProperties
+import com.github.said1296.mqttcontroller.constants.MatchType
+import com.github.said1296.mqttcontroller.exceptions.TopicParameterException
+import com.github.said1296.mqttcontroller.models.SubtopicUserInput
+import com.github.said1296.mqttcontroller.models.TopicMatchResult
 import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 

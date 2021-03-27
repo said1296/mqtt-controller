@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lacomuna.mqttcontroller.configurations.MqttControllerConfiguration
+com.github.said1296.mqttcontroller.configurations.MqttControllerConfiguration

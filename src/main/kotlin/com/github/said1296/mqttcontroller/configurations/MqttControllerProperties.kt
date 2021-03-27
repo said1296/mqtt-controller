@@ -1,4 +1,4 @@
-package com.lacomuna.mqttcontroller.configurations
+package com.github.said1296.mqttcontroller.configurations
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

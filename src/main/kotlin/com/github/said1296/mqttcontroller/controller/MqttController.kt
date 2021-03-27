@@ -1,18 +1,18 @@
-package com.lacomuna.mqttcontroller.controller
+package com.github.said1296.mqttcontroller.controller
 
 
 import com.google.gson.Gson
-import com.lacomuna.mqttcontroller.annotations.Payload
-import com.lacomuna.mqttcontroller.annotations.Publish
-import com.lacomuna.mqttcontroller.annotations.Subscribe
-import com.lacomuna.mqttcontroller.annotations.TopicParameter
-import com.lacomuna.mqttcontroller.configurations.MqttControllerProperties
-import com.lacomuna.mqttcontroller.constants.MatchType
-import com.lacomuna.mqttcontroller.constants.PayloadManagingStrategy
-import com.lacomuna.mqttcontroller.exceptions.CastException
-import com.lacomuna.mqttcontroller.exceptions.ParameterException
-import com.lacomuna.mqttcontroller.exceptions.PayloadException
-import com.lacomuna.mqttcontroller.exceptions.TopicParameterException
+import com.github.said1296.mqttcontroller.annotations.Payload
+import com.github.said1296.mqttcontroller.annotations.Publish
+import com.github.said1296.mqttcontroller.annotations.Subscribe
+import com.github.said1296.mqttcontroller.annotations.TopicParameter
+import com.github.said1296.mqttcontroller.configurations.MqttControllerProperties
+import com.github.said1296.mqttcontroller.constants.MatchType
+import com.github.said1296.mqttcontroller.constants.PayloadManagingStrategy
+import com.github.said1296.mqttcontroller.exceptions.CastException
+import com.github.said1296.mqttcontroller.exceptions.ParameterException
+import com.github.said1296.mqttcontroller.exceptions.PayloadException
+import com.github.said1296.mqttcontroller.exceptions.TopicParameterException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service

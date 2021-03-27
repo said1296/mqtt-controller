@@ -1,6 +1,6 @@
-package com.lacomuna.mqttcontroller.models
+package com.github.said1296.mqttcontroller.models
 
-import com.lacomuna.mqttcontroller.constants.MatchType
+import com.github.said1296.mqttcontroller.constants.MatchType
 
 /**
  * Holds the values inputted by the User with the [Subscribe] annotation
