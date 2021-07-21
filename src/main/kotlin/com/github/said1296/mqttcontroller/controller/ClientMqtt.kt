@@ -9,14 +9,38 @@ import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 
 
-class ClientMqtt(private var baseTopic: String, private val matchType: MatchType = MatchType.MULTI_LEVEL, mqttControllerProperties: MqttControllerProperties, val options: MqttConnectOptions = defaultOptions, val clientId: String = "") {
+class ClientMqtt(private var baseTopic: String, private val matchType: MatchType = MatchType.MULTI_LEVEL, mqttControllerProperties: MqttControllerProperties, keepAliveInterval: Int, clientId: String = "") {
 
-    var client: MqttClient  =MqttClient(mqttControllerProperties.broker + ":" + mqttControllerProperties.port, clientId, MqttDefaultFilePersistence(".mqtt"))
+    var client: MqttClient = MqttClient(mqttControllerProperties.broker + ":" + mqttControllerProperties.port, clientId, MqttDefaultFilePersistence(".mqtt"))
     private var subtopicUserInputs: MutableList<SubtopicUserInput> = mutableListOf()
     private val topicLevelsRegex = Regex("(?<=/|^)(.*?)(?=/)")
     private val topicParametersRegex = Regex("(?<=\\{)(.*?)(?=\\})")
+    private var baseTopicFormatted: String
 
     init {
+        baseTopicFormatted = addMatchTypeToTopic(baseTopic, matchType)
+
+        client.setCallback(object: MqttCallbackExtended {
+            override fun connectionLost(cause: Throwable) {
+                println("MQTT ERROR: Connection lost to ${mqttControllerProperties.broker}:${mqttControllerProperties.port}. Cause: ${cause.message}")
+            }
+
+            override fun messageArrived(topic: String, message: MqttMessage) {
+            }
+
+            override fun deliveryComplete(token: IMqttDeliveryToken?) {
+            }
+
+            override fun connectComplete(reconnect: Boolean, serverURI: String?) {
+                if (reconnect) {
+                    subscribe()
+                }
+                println("MQTT: Connection to ${mqttControllerProperties.broker}:${mqttControllerProperties.port} completed. Is a reconnect attempt: $reconnect")
+            }
+
+        })
+        val options = defaultOptions
+        options.keepAliveInterval = keepAliveInterval
         baseTopic = baseTopic.trim()
         client.connect(options)
     }
@@ -27,7 +51,7 @@ class ClientMqtt(private var baseTopic: String, private val matchType: MatchType
      * Subscribes to an MQTT broker's topic. It's recommended to subscribe after all subtopics have been registered.
      */
     fun subscribe() {
-        val baseTopicFormatted = addMatchTypeToTopic(baseTopic, matchType)
+        client.unsubscribe(baseTopicFormatted)
         client.subscribe(baseTopicFormatted) { topic, message -> handleTopicAndMessage(topic, message) }
     }
 
@@ -209,7 +233,6 @@ class ClientMqtt(private var baseTopic: String, private val matchType: MatchType
     companion object {
         val defaultOptions = MqttConnectOptions().apply {
             isAutomaticReconnect = true
-            isCleanSession = true
             connectionTimeout = 10
         }
     }

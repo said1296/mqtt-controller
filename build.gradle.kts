@@ -6,10 +6,11 @@ plugins {
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     `maven-publish`
+    signing
 }
 
 group = "com.github.said1296"
-version = "1"
+version = "1.6"
 java.sourceCompatibility = JavaVersion.VERSION_15
 
 repositories {
@@ -53,8 +54,47 @@ tasks.withType<Test> {
 
 publishing {
     publications {
-        create<MavenPublication>("mqtt-controller") {
+        create<MavenPublication>("mavenJava") {
+            groupId = group as String?
+            artifactId = "mqttcontroller"
+            version = version
             from(components["java"])
+
+            pom {
+                name.set("Mqtt Controller for Spring Boot")
+                description.set("Allows to easily suscribe, publish and deserialize payloads from an MQTT Broker")
+                url.set("https://github.com/said1296/mqttcontroller")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("said1296")
+                        name.set("Aarón Said García Chávez")
+                        email.set("aaron.gavez@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git@github.com:said1296/mqtt-controller.git")
+                    url.set("https://github.com/said1296/mqttcontroller")
+                }
+            }
+        }
+        repositories {
+            maven {
+                setUrl("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+                credentials {
+                    username = project.property("user") as String
+                    password = project.property("password") as String
+                }
+            }
         }
     }
+}
+
+signing {
+    sign(publishing.publications["mavenJava"])
 }

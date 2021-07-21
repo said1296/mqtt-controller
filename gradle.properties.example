@@ -1,0 +1,5 @@
+user=said1296
+password=SECRET_PASSWORD
+signing.keyId=80034926
+signing.password=SECRET_PASSWORD
+signing.secretKeyRingFile=C:/Users/kirim/keys/secring.gpg

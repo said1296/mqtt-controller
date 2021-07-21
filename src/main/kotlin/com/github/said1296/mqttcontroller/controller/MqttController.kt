@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets
 import javax.annotation.PostConstruct
 
 @Component
-class MqttController(val baseTopic: String, val matchType: MatchType = MatchType.MULTI_LEVEL) {
+class MqttController(val baseTopic: String, val matchType: MatchType = MatchType.MULTI_LEVEL, val keepAliveInterval: Int = 60) {
     lateinit var client: ClientMqtt
 
     @Autowired
@@ -35,7 +35,7 @@ class MqttController(val baseTopic: String, val matchType: MatchType = MatchType
      */
     @PostConstruct
     private fun postConstruct(){
-        client = ClientMqtt(baseTopic, matchType, mqttControllerProperties)
+        client = ClientMqtt(baseTopic, matchType, mqttControllerProperties, keepAliveInterval)
         reflectSubtopics()
         client.subscribe()
     }

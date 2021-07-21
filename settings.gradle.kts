@@ -12,4 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = "mqtt-controller"
+rootProject.name = "mqttcontroller"
