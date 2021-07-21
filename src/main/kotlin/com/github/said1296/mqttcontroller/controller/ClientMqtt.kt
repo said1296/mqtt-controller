@@ -5,13 +5,17 @@ import com.github.said1296.mqttcontroller.constants.MatchType
 import com.github.said1296.mqttcontroller.exceptions.TopicParameterException
 import com.github.said1296.mqttcontroller.models.SubtopicUserInput
 import com.github.said1296.mqttcontroller.models.TopicMatchResult
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.eclipse.paho.client.mqttv3.*
 import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence
 
 
-class ClientMqtt(private var baseTopic: String, private val matchType: MatchType = MatchType.MULTI_LEVEL, mqttControllerProperties: MqttControllerProperties, keepAliveInterval: Int, clientId: String = "") {
+class ClientMqtt(private var baseTopic: String, private val matchType: MatchType = MatchType.MULTI_LEVEL, mqttControllerProperties: MqttControllerProperties) {
 
-    var client: MqttClient = MqttClient(mqttControllerProperties.broker + ":" + mqttControllerProperties.port, clientId, MqttDefaultFilePersistence(".mqtt"))
+    val logger: Logger =  LogManager.getLogger(ClientMqtt::class.java)
+
+    var client: MqttClient = MqttClient(mqttControllerProperties.broker + ":" + mqttControllerProperties.port, mqttControllerProperties.clientId, MqttDefaultFilePersistence(".mqtt"))
     private var subtopicUserInputs: MutableList<SubtopicUserInput> = mutableListOf()
     private val topicLevelsRegex = Regex("(?<=/|^)(.*?)(?=/)")
     private val topicParametersRegex = Regex("(?<=\\{)(.*?)(?=\\})")
@@ -19,10 +23,11 @@ class ClientMqtt(private var baseTopic: String, private val matchType: MatchType
 
     init {
         baseTopicFormatted = addMatchTypeToTopic(baseTopic, matchType)
+        baseTopic = baseTopic.trim()
 
         client.setCallback(object: MqttCallbackExtended {
             override fun connectionLost(cause: Throwable) {
-                println("MQTT ERROR: Connection lost to ${mqttControllerProperties.broker}:${mqttControllerProperties.port}. Cause: ${cause.message}")
+                logger.error("Connection lost to ${mqttControllerProperties.broker}:${mqttControllerProperties.port}. Cause: ${cause.message}")
             }
 
             override fun messageArrived(topic: String, message: MqttMessage) {
@@ -35,13 +40,12 @@ class ClientMqtt(private var baseTopic: String, private val matchType: MatchType
                 if (reconnect) {
                     subscribe()
                 }
-                println("MQTT: Connection to ${mqttControllerProperties.broker}:${mqttControllerProperties.port} completed. Is a reconnect attempt: $reconnect")
+                logger.info("Successful connection to ${mqttControllerProperties.broker}:${mqttControllerProperties.port}. Is a reconnect attempt: $reconnect")
             }
 
         })
         val options = defaultOptions
-        options.keepAliveInterval = keepAliveInterval
-        baseTopic = baseTopic.trim()
+        options.keepAliveInterval = mqttControllerProperties.keepAliveInterval
         client.connect(options)
     }
 

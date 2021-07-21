@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "com.github.said1296"
-version = "1.6"
+version = "1.7"
 java.sourceCompatibility = JavaVersion.VERSION_15
 
 repositories {

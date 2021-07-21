@@ -7,5 +7,7 @@ import org.springframework.stereotype.Component
 @ConfigurationProperties(prefix = "mqtt")
 data class MqttControllerProperties(
         var broker: String = "",
-        var port: String = ""
+        var port: String = "",
+        var clientId: String = "",
+        var keepAliveInterval: Int = 60
 )
