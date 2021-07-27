@@ -1,14 +1,13 @@
 <!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
     <weaver options="-verbose -showWeaveInfo">
-        <!-- only weave classes in our application-specific packages -->
+        <!--  only weave classes in our application-specific packages  -->
         <include within="com.github.said1296.mqttcontroller.aspects.*"/>
         <exclude within="org.springframework..*"/>
         <exclude within="org.apache..*"/>
     </weaver>
-
     <aspects>
-        <!-- weave in just this aspect -->
+        <!--  weave in just this aspect  -->
         <aspect name="com.github.said1296.mqttcontroller.aspects.SubtopicAnnotatedMethodAspect"/>
     </aspects>
 </aspectj>

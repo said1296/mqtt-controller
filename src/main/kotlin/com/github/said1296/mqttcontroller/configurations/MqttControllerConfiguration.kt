@@ -1,8 +1,6 @@
 package com.github.said1296.mqttcontroller.configurations
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
 
 @EnableConfigurationProperties(MqttControllerProperties::class)
 class MqttControllerConfiguration

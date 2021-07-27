@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.said1296.mqttcontroller.configurations.MqttControllerConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.said1296.mqttcontroller.configurations.MqttControllerConfiguration
+org.springframework.context.ApplicationListener=com.github.said1296.mqttcontroller.configurations.ApplicationStartingEventListener
